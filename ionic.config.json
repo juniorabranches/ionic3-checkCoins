@@ -1,6 +1,6 @@
 {
   "name": "CheckCoins",
-  "app_id": "",
+  "app_id": "892d7bf5",
   "type": "ionic-angular",
   "integrations": {
     "cordova": {}
