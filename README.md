@@ -1,6 +1,6 @@
 # Follow the virtual currency quotations using Braziliex's api
 
-![View this](https://github.com/juniorabranches/ionic3-checkCoins/tree/master/src/assets/CheckCoinsGif.gif)
+![View this](src/assets/CheckCoinsGif.gif)
 
 # Using:
 * Ionic 3
