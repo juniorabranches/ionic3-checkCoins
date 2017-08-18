@@ -1,0 +1,8 @@
+<ion-content padding text-center class="primary-font">
+  <div style="width:100%; text-align: center;">
+    <img *ngIf="user.photoURL" [src]="user.photoURL"/>
+    <img *ngIf="!user.photoURL" src="assets/img/avatar-placeholder.png"/>
+  </div>
+  <h3 class="white">Hello {{ user.displayName }}</h3>
+  <button ion-button clear color="primary" small (click)="logout()">Logout</button>
+</ion-content>

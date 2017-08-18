@@ -1,0 +1,50 @@
+page-home {
+
+  ion-searchbar {
+    position: absolute;
+    z-index: 11;
+  }
+
+  .selected-topics {
+    overflow: auto;
+    display: flex;
+  }
+
+  .slide-zoom {
+    height: 100%;
+    color: white;
+  }
+
+  hr {
+    background-color: white !important;
+  }
+
+  .semi-transparent {
+    color : transparentize(white, 0.5) !important;
+  }
+
+  // @extend .primary-font;
+  .word-wrap {
+    word-wrap: break-word;
+    // overflow-x: hidden;
+    // text-overflow: ellipsis;
+    white-space:normal;
+  }
+  .segment-button.segment-activated{
+    border-color: #ffffff !important;
+    opacity: .7;
+  }
+  .mt-header .toolbar-background{
+    background: transparentize(black, 0.5);
+    color: white;
+  }
+  .customTitle {
+    padding: 35px 30px 25px 30px;
+  }
+
+  .fab{
+    background-color: rgba(0, 0, 0, 0.5);
+  }
+}
+
+

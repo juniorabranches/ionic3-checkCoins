@@ -1,0 +1,13 @@
+{
+  "name": "CheckCoins",
+  "short_name": "CheckCoins",
+  "start_url": "index.html",
+  "display": "standalone",
+  "icons": [{
+    "src": "assets/icon/app-icon.png",
+    "sizes": "512x512",
+    "type": "image/png"
+  }],
+  "background_color": "#1e222d",
+  "theme_color": "#1e222d"
+}
