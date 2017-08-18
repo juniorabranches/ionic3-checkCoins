@@ -17,14 +17,15 @@ declare var google: any;
 })
 export class HomePage {
   @ViewChild('mycontent') content: Content;
-  @ViewChild(Slides) categories : Slides;
+  @ViewChild(Slides) currencies : Slides;
 
   listSearch: string = '';
-  events: any        = [];
+  currencieDetail: any        = [];
   view : string      = "coins";
   dataWasChanged     = false;
+  curCount        = 0;
 
-  topics = [{
+  allCurrencies = [{
     name: 'Real',
     color: '#6064FC'
   }, {
@@ -53,59 +54,85 @@ export class HomePage {
     color: '#FF640C'
   }];
 
-  selectedTopics = [];
+  selectedCurrencies = [];
 
   constructor(public app: App, public navCtrl: NavController,
               public checkcoinsProvider: CheckCoinsData, public firebaseData: CheckCoinsFirebaseData,
               public authData: AuthData, public loadingCtrl: LoadingService,
               public alertCtrl: AlertService, public platform: Platform,
               public geolocation: Geolocation, public renderer: Renderer) {
+      this.loadCurDetail();
   }
 
   ngOnInit(){
     window.addEventListener('resize', () => {
       let width                     = this.platform.width();
       let slidesPerView             = Math.floor(width / 125);
-      this.categories.slidesPerView = slidesPerView;
-      this.categories.update();
+      this.currencies.slidesPerView = slidesPerView;
+      this.currencies.update();
     }, false);
   }
 
   addTopic(topic){
-    if(this.selectedTopics.indexOf(topic) === -1){
-      this.selectedTopics.push(topic);
+    if(this.selectedCurrencies.indexOf(topic) === -1){
+      this.selectedCurrencies.push(topic);
       this.dataWasChanged = true;
-      this.loadData();
     }
   }
 
   deleteTopic(topic) {
-    this.selectedTopics.splice(this.selectedTopics.indexOf(topic),1);
+    this.selectedCurrencies.splice(this.selectedCurrencies.indexOf(topic),1);
     this.dataWasChanged = true;
-    this.loadData();
   }
 
-  loadData() {
-    if(this.view == 'coins'){
-      this.loadEvents();
-    }
-  }
-
-  loadEvents() {
+  loadCurDetail() {
     this.loadingCtrl.present();
-    let topics = this.selectedTopics.join(' ');
-    this.loadingCtrl.dismiss().then(() => {
-    });
+    this.currencieDetail = [];
+    let topics = this.selectedCurrencies.join(' ');
+    this.checkcoinsProvider.getCurrencies().then(curData => {
+      this.loadingCtrl.dismiss().then(() => {
+        for (const key of Object.keys(curData)) {
+          this.currencieDetail.push({ MinWithdrawal: curData[key].MinWithdrawal,
+                                      active: curData[key].active,
+                                      decimal: curData[key].decimal,
+                                      dev_active: curData[key].dev_active,
+                                      minAmountTrade:curData[key].active,
+                                      minConf: curData[key].active,
+                                      minDeposit: curData[key].active,
+                                      name: curData[key].name,
+                                      txDepositFee:curData[key].active,
+                                      txDepositPercentageFee: curData[key].active,
+                                      txWithdrawalFee: curData[key].active,
+                                      txWithdrawalPercentageFee:curData[key].active,
+                                      under_maintenance:curData[key].active,
+                                      sigle: curData[key].name == 'Real' ? 'brl' :
+                                             curData[key].name == 'Bitcoin' ? 'btc' :
+                                             curData[key].name == 'Litecoin' ? 'ltc' :
+                                             curData[key].name == 'Ethereum' ? 'eth' :
+                                             curData[key].name == 'Monero' ? 'xmr' :
+                                             curData[key].name == 'Dash' ? 'dash' :
+                                             curData[key].name == 'MartexCoin' ? 'mxt' :
+                                             curData[key].name == 'Prosper' ? 'Prosper' :
+                                             curData[key].name == 'SingularDTV' ? 'sngls' :  '',
+                                             
+                                      color: curData[key].name == 'Real' ? '#6064FC' :
+                                             curData[key].name == 'Bitcoin' ? '#99D6D9' :
+                                             curData[key].name == 'Litecoin' ? '#A5A3DD' :
+                                             curData[key].name == 'Ethereum' ? '#4F99F0' :
+                                             curData[key].name == 'Monero' ? '#f8ab02' :
+                                             curData[key].name == 'Dash' ? '#ff1616' :
+                                             curData[key].name == 'MartexCoin' ? '#16ff89' :
+                                             curData[key].name == 'Prosper' ? '#b016ff' :
+                                             curData[key].name == 'SingularDTV' ? '#FF640C' :  '#6064FC'
+
+                          });
+           this.curCount++;
+          }
+        });
+        this.allCurrencies
+        this.dataWasChanged = false;
+      });
+
   }
 
-  // hideSearchBar(){
-    // if(this.search){
-    //   let opacity = 1 - (this.content.scrollTop/115);
-    //   this.renderer.setElementStyle(this.searchbar.nativeElement, 'margin-top', (50 * opacity * -1) + 'px');
-    //   if(opacity <= 0){
-    //     opacity = 0;
-    //   }
-    //   // this.renderer.setElementStyle(this.searchbar.nativeElement, 'opacity', opacity.toString());
-    // }
-  // }
 }

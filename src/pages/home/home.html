@@ -3,12 +3,14 @@
   <expandable-header [scrollArea]="mycontent" headerHeight="125">
     <div class="customTitle">
       <h1 *ngIf="view == 'coins'">Check Coins</h1>
+      <h6 no-margin class="semi-transparent">{{ curCount }} Currencies
+      </h6>
     </div>
   </expandable-header>
 </ion-header>
 <ion-content class="primary-font" fullscreen #mycontent>
   <div padding class="selected-topics">
-    <ion-chip *ngFor="let topic of selectedTopics">
+    <ion-chip *ngFor="let topic of selectedCurrencies">
       <ion-label>{{ topic }}</ion-label>
       <button ion-button clear (click)="deleteTopic(topic)">
         <ion-icon name="close-circle"></ion-icon>
@@ -16,7 +18,7 @@
     </ion-chip>
   </div>
   <ion-slides padding paginationType autoplay="3000" loop spaceBetween="10" slidesPerView="3" style="height: 20vh">
-		<ion-slide *ngFor="let topic of topics" style="border-radius: 5px"
+		<ion-slide *ngFor="let topic of allCurrencies" style="border-radius: 5px"
         [ngStyle]="{'background': 'linear-gradient(283deg, #CFD4DE, '+topic.color+')'}"
         (click)="addTopic(topic.name)">
       <hr margin>
@@ -24,24 +26,14 @@
     </ion-slide>
   </ion-slides>
   <div *ngIf="view == 'coins'">
-      <ion-card *ngFor="let event of events"  (click)="goToDetail(event)">
-        <ion-card-header>
-          <h2 class="word-wrap secondary-font" [innerHTML]="event.name"></h2>
-        </ion-card-header>
-        <ion-card-content>
-          <small class="semi-transparent">on {{event.time | date}}</small>
-          <h6 class="secondary-font">At
-            <span *ngIf="!event.venue?.name">Undisclosed</span>
-            <span *ngIf="event.venue?.name">{{event.venue?.name}}</span>
-            <span *ngIf="!event.venue?.address_1"></span>
-            <span *ngIf="event.venue?.address_1"> , {{event.venue?.address_1}}</span>
+      <ion-card *ngFor="let curDetail of currencieDetail"  (click)="goToDetail(curDetail)">
+        <ion-card-header [ngStyle]="{'background': 'linear-gradient(283deg, #CFD4DE, '+curDetail.color+')'}"          >
+          <h2 class="word-wrap secondary-font" [innerHTML]="curDetail.name"></h2>
+          <h6>Sigle:
+            <span>{{ curDetail.sigle }}</span>
           </h6>
-        </ion-card-content>
+        </ion-card-header>
+
       </ion-card>
   </div>
-<!--  <ion-fab right bottom (click)="toggleSearch()">
-    <button ion-fab class="pop-in">
-      <ion-icon name="search"></ion-icon>
-    </button>
-  </ion-fab>-->
 </ion-content>
