@@ -114,7 +114,7 @@ export class HomePage {
                                              curData[key].name == 'MartexCoin' ? 'mxt' :
                                              curData[key].name == 'Prosper' ? 'Prosper' :
                                              curData[key].name == 'SingularDTV' ? 'sngls' :  '',
-                                             
+
                                       color: curData[key].name == 'Real' ? '#6064FC' :
                                              curData[key].name == 'Bitcoin' ? '#99D6D9' :
                                              curData[key].name == 'Litecoin' ? '#A5A3DD' :

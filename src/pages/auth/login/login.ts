@@ -25,6 +25,14 @@ export class LoginPage {
       Validators.required])],
     });
     splashscreen.hide();
+    alertCtrl.create("Check Coins",  `
+        <p> Hey! Thanks for trying Check Coins out. If you don't want to create an account, go on and login using:</p>
+        <ul>
+          <li>Username: j@j.com</li>
+          <li>Password: ccoins</li>
+        </ul>
+        <p style="float:right">Enjoy!</p>
+      `);
   }
 
   login() {

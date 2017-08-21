@@ -18,4 +18,12 @@ export class CheckCoinsData {
     });
   }
 
+  getResume(){
+    return new Promise(resolve => {
+        this.http.get(`${this.baseUrlV1}ticker`)
+            .subscribe(res => resolve(res.json()));
+    });
+  }
+
+
 }
